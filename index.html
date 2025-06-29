@@ -56,7 +56,7 @@
       max-height: 140px;
       cursor: pointer;
       box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
-      display: flex;Add commentMore actions
+      display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
@@ -102,7 +102,7 @@
       margin-bottom: 0.5rem;
       font-weight: 800;
       color: white;
-      width: 100%;Add commentMore actions
+      width: 100%;
       text-align: center;
     }
 
@@ -110,7 +110,7 @@
       color: #e2e8f0;
       font-weight: 600;
       margin-bottom: 0;
-      width: 100%;Add commentMore actions
+      width: 100%;
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
@@ -121,7 +121,7 @@
       opacity: 0;
       height: 0;
       overflow: hidden;
-      transition: Add commentMore actions
+      transition: 
         opacity 0.3s ease,
         height 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
       width: 100%;
@@ -132,6 +132,7 @@
     .card:hover .main-content {
       opacity: 1;
       height: auto;
+      margin-top: 1.5rem;
     }
 
     p.description {
@@ -178,6 +179,7 @@
       font-size: 0.8rem;
       color: #94a3b8;
       text-align: center;
+      width: 100%;
     }
 
     @keyframes borderFlow {
@@ -185,16 +187,22 @@
       100% { background-position: 200% 50%; }
     }
 
-    /* Mobile-specific fixes (ONLY CHANGE MADE) */
     @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
       p.subtitle {
+        white-space: normal;
         font-size: 0.9rem;
-        margin-top: 0.3rem;
+      }
+      .card {
+        padding: 1.5rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Video Background -->
   <video autoplay muted loop playsinline id="bgVideo">
     <source src="bg.mp4" type="video/mp4" />
     Your browser does not support the video tag.
@@ -233,18 +241,35 @@
   <script>
     const card = document.getElementById('card');
     let isMobile = window.matchMedia("(pointer: coarse)").matches;
+    let isAnimating = false;
 
+    // Handle both hover and click interactions
     if (isMobile) {
       card.addEventListener('click', toggleCard);
     } else {
-      card.addEventListener('mouseenter', () => card.classList.add('expanded'));
-      card.addEventListener('mouseleave', () => card.classList.remove('expanded'));
+      card.addEventListener('mouseenter', () => {
+        if (!card.classList.contains('expanded')) {
+          card.classList.add('expanded');
+        }
+      });
+      card.addEventListener('mouseleave', () => {
+        if (card.classList.contains('expanded')) {
+          card.classList.remove('expanded');
+        }
+      });
     }
 
     function toggleCard() {
-      card.classList.toggle('expanded');
+      if (!isAnimating) {
+        isAnimating = true;
+        card.classList.toggle('expanded');
+        setTimeout(() => {
+          isAnimating = false;
+        }, 400); // Match the transition duration
+      }
     }
 
+    // Auto-expand after delay if no interaction
     setTimeout(() => {
       if (!card.classList.contains('expanded')) {
         card.classList.add('expanded');
