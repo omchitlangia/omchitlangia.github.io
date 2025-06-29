@@ -205,21 +205,22 @@
       h1 {
         font-size: 2rem;
       }
-      p.subtitle {
-        white-space: normal;
-        font-size: 0.9rem;
-        overflow: visible;
-        text-overflow: clip;
-      }
       .card {
         padding: 1.5rem;
       }
       
-      /* Mobile-specific styles */
+      /* Mobile-specific subtitle fix */
+      p.subtitle {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      
       .card:not(.expanded) p.subtitle {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
       }
     }
   </style>
@@ -290,7 +291,7 @@
         card.classList.toggle('expanded');
         setTimeout(() => {
           isAnimating = false;
-        }, 400); // Match the transition duration
+        }, 400);
       }
     }
 
