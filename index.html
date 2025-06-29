@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Om Chitlangia</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     * {
       margin: 0;
@@ -37,75 +38,133 @@
       z-index: -1;
     }
 
+    /* Light Animation Background */
+    .light {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.7;
+      z-index: -1;
+    }
+
+    .light-cyan {
+      width: 300px;
+      height: 300px;
+      background: cyan;
+      animation: moveCyan 15s infinite alternate ease-in-out;
+    }
+
+    .light-gold {
+      width: 250px;
+      height: 250px;
+      background: gold;
+      animation: moveGold 18s infinite alternate ease-in-out;
+    }
+
+    .card-container {
+      position: relative;
+      max-width: 720px;
+      width: 100%;
+    }
+
     .card {
-      background-color: rgba(0, 0, 0, 0.85); /* Darker background */
+      background-color: rgba(0, 0, 0, 0.85);
       color: #ffffff;
       padding: 2rem 2.5rem;
       border-radius: 1rem;
-      max-width: 720px;
       text-align: center;
       box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
-      animation: fadeIn 1.2s ease;
       position: relative;
       overflow: hidden;
+      transition: all 0.5s ease;
+      max-height: 150px;
     }
 
-    .card::before {
+    .card.expanded {
+      max-height: 500px;
+    }
+
+    .card::before, .card::after {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        to bottom right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0) 45%,
-        rgba(255, 255, 255, 0.1) 48%,
-        rgba(255, 255, 255, 0.1) 52%,
-        rgba(255, 255, 255, 0) 55%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      transform: rotate(30deg);
-      animation: shine 6s infinite linear;
-      z-index: -1;
+      inset: 0;
+      border-radius: 1rem;
+      padding: 2px;
+      background: linear-gradient(45deg, cyan, gold);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover::before, .card:hover::after,
+    .card.expanded::before, .card.expanded::after {
+      opacity: 1;
+      animation: rotateBorder 4s linear infinite;
+    }
+
+    .card::after {
+      animation-delay: -2s;
+    }
+
+    .main-content {
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .card.expanded .main-content {
+      opacity: 1;
+      height: auto;
+      margin-top: 1.5rem;
     }
 
     h1 {
       font-size: 2.7rem;
       margin-bottom: 0.4rem;
+      cursor: pointer;
     }
 
     p.subtitle {
       color: #e2e8f0;
-      margin-bottom: 1.2rem;
+      margin-bottom: 0;
+      cursor: pointer;
     }
 
-    p {
+    p.description {
       font-size: 1rem;
       line-height: 1.6;
       color: #d1d5db;
+      margin-bottom: 1.5rem;
     }
 
     .buttons {
       margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
     }
 
     a.button {
-      display: inline-block;
-      margin: 10px 10px 0 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 12px 24px;
       background: #ffffff;
       color: #000;
       text-decoration: none;
       border-radius: 0.75rem;
       font-weight: 600;
-      transition: 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     a.button:hover {
       background: #e2e8f0;
       transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
     .footer {
@@ -114,40 +173,85 @@
       color: #94a3b8;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes moveCyan {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(50px, 50px); }
+      50% { transform: translate(100px, -30px); }
+      75% { transform: translate(-50px, 30px); }
+      100% { transform: translate(-100px, -50px); }
     }
 
-    @keyframes shine {
-      0% { transform: rotate(30deg) translate(-10%, -10%); }
-      100% { transform: rotate(30deg) translate(10%, 10%); }
+    @keyframes moveGold {
+      0% { transform: translate(50px, 50px); }
+      25% { transform: translate(-30px, 100px); }
+      50% { transform: translate(30px, -50px); }
+      75% { transform: translate(100px, 30px); }
+      100% { transform: translate(-50px, -100px); }
+    }
+
+    @keyframes rotateBorder {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
+  <!-- Background Lights -->
+  <div class="light light-cyan"></div>
+  <div class="light light-gold"></div>
 
-  <!-- ✅ Working full-screen persistent video background -->
+  <!-- Video Background -->
   <video autoplay muted loop playsinline id="bgVideo">
     <source src="bg.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
-  <div class="card">
-    <h1>Om Chitlangia</h1>
-    <p class="subtitle">Economics & Finance @ Shiv Nadar University</p>
-    <p>I'm passionate about investments, financial modeling, behavioral finance, and turning inefficiencies into opportunities using math and psychology.</p>
-    
-    <div class="buttons">
-      <a class="button" href="Om%20Chitlangia.pdf" download>📄 Resume</a>
-      <a class="button" href="https://discord.com/users/omchitlangia" target="_blank">💬 Discord</a>
-      <a class="button" href="https://github.com/omchitlangia" target="_blank">🐙 GitHub</a>
-    </div>
+  <div class="card-container">
+    <div class="card" id="card">
+      <h1 onclick="toggleCard()">Om Chitlangia</h1>
+      <p class="subtitle" onclick="toggleCard()">Economics & Finance @ Shiv Nadar University</p>
+      
+      <div class="main-content">
+        <p class="description">I'm passionate about investments, financial modeling, behavioral finance, and turning inefficiencies into opportunities using math and psychology.</p>
+        
+        <div class="buttons">
+          <a class="button" href="Om%20Chitlangia.pdf" download>
+            <i class="far fa-file-alt"></i> Resume
+          </a>
+          <a class="button" href="https://discord.com/users/omchitlangia" target="_blank">
+            <i class="fab fa-discord"></i> Discord
+          </a>
+          <a class="button" href="https://github.com/omchitlangia" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
 
-    <div class="footer">
-      © 2025 Om Chitlangia
+        <div class="footer">
+          © 2025 Om Chitlangia
+        </div>
+      </div>
     </div>
   </div>
 
+  <script>
+    function toggleCard() {
+      const card = document.getElementById('card');
+      card.classList.toggle('expanded');
+      
+      // If expanding, ensure video is playing (for mobile)
+      if (card.classList.contains('expanded')) {
+        const video = document.getElementById('bgVideo');
+        video.play().catch(e => console.log("Autoplay prevented:", e));
+      }
+    }
+    
+    // Auto-expand after 3 seconds if not hovered
+    setTimeout(() => {
+      const card = document.getElementById('card');
+      if (!card.classList.contains('expanded')) {
+        card.classList.add('expanded');
+      }
+    }, 3000);
+  </script>
 </body>
 </html>
