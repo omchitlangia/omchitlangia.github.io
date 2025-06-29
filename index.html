@@ -17,190 +17,174 @@
       height: 100%;
       width: 100%;
       font-family: 'Inter', sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     body {
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
-      background-color: black;
+      background-color: #0a0a0a;
+      color: white;
     }
 
     video#bgVideo {
       position: fixed;
       top: 0;
       left: 0;
-      height: 100%;
       width: 100%;
+      height: 100%;
       object-fit: cover;
       z-index: -1;
     }
 
-    /* Light Animation Background */
-    .light {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.7;
-      z-index: -1;
-    }
-
-    .light-cyan {
-      width: 300px;
-      height: 300px;
-      background: cyan;
-      animation: moveCyan 15s infinite alternate ease-in-out;
-    }
-
-    .light-gold {
-      width: 250px;
-      height: 250px;
-      background: gold;
-      animation: moveGold 18s infinite alternate ease-in-out;
-    }
-
     .card-container {
       position: relative;
+      width: 90%;
       max-width: 720px;
-      width: 100%;
+      margin: 0 auto;
     }
 
     .card {
-      background-color: rgba(0, 0, 0, 0.85);
-      color: #ffffff;
-      padding: 2rem 2.5rem;
-      border-radius: 1rem;
-      text-align: center;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+      background: rgba(10, 10, 10, 0.95);
+      border-radius: 12px;
+      padding: 2rem;
       position: relative;
       overflow: hidden;
-      transition: all 0.5s ease;
-      max-height: 150px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 140px;
+      cursor: pointer;
+    }
+
+    @media (hover: hover) {
+      .card:hover {
+        max-height: 500px;
+      }
     }
 
     .card.expanded {
       max-height: 500px;
     }
 
-    .card::before, .card::after {
+    /* Sleek moving border */
+    .card::before {
       content: '';
       position: absolute;
-      inset: 0;
-      border-radius: 1rem;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 12px;
       padding: 2px;
-      background: linear-gradient(45deg, cyan, gold);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      background: linear-gradient(
+        90deg,
+        #00ffff 0%,
+        #ffd700 50%,
+        #00ffff 100%
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      animation: borderFlow 3s linear infinite;
+      z-index: -1;
     }
 
-    .card:hover::before, .card:hover::after,
-    .card.expanded::before, .card.expanded::after {
-      opacity: 1;
-      animation: rotateBorder 4s linear infinite;
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #00ffff, #ffd700);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
-    .card::after {
-      animation-delay: -2s;
+    p.subtitle {
+      color: #a0a0a0;
+      font-weight: 600;
+      margin-bottom: 0;
+      transition: all 0.3s ease;
     }
 
     .main-content {
       opacity: 0;
       height: 0;
       overflow: hidden;
-      transition: all 0.5s ease;
+      transition: all 0.4s ease;
     }
 
-    .card.expanded .main-content {
+    .card.expanded .main-content,
+    .card:hover .main-content {
       opacity: 1;
       height: auto;
       margin-top: 1.5rem;
     }
 
-    h1 {
-      font-size: 2.7rem;
-      margin-bottom: 0.4rem;
-      cursor: pointer;
-    }
-
-    p.subtitle {
-      color: #e2e8f0;
-      margin-bottom: 0;
-      cursor: pointer;
-    }
-
     p.description {
-      font-size: 1rem;
+      color: #d0d0d0;
       line-height: 1.6;
-      color: #d1d5db;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .buttons {
-      margin-top: 1.5rem;
       display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
       justify-content: center;
-      gap: 15px;
     }
 
     a.button {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 24px;
-      background: #ffffff;
-      color: #000;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      color: white;
       text-decoration: none;
-      border-radius: 0.75rem;
       font-weight: 600;
       transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     a.button:hover {
-      background: #e2e8f0;
+      background: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .button i {
+      font-size: 1.1em;
+    }
+
+    .fa-discord {
+      color: #5865F2;
+    }
+
+    .fa-github {
+      color: white;
+    }
+
+    .fa-file-alt {
+      color: #00ffff;
     }
 
     .footer {
-      margin-top: 25px;
-      font-size: 0.85rem;
-      color: #94a3b8;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #666;
+      text-align: center;
     }
 
-    @keyframes moveCyan {
-      0% { transform: translate(0, 0); }
-      25% { transform: translate(50px, 50px); }
-      50% { transform: translate(100px, -30px); }
-      75% { transform: translate(-50px, 30px); }
-      100% { transform: translate(-100px, -50px); }
-    }
-
-    @keyframes moveGold {
-      0% { transform: translate(50px, 50px); }
-      25% { transform: translate(-30px, 100px); }
-      50% { transform: translate(30px, -50px); }
-      75% { transform: translate(100px, 30px); }
-      100% { transform: translate(-50px, -100px); }
-    }
-
-    @keyframes rotateBorder {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    @keyframes borderFlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
     }
   </style>
 </head>
 <body>
-  <!-- Background Lights -->
-  <div class="light light-cyan"></div>
-  <div class="light light-gold"></div>
-
-  <!-- Video Background -->
   <video autoplay muted loop playsinline id="bgVideo">
     <source src="bg.mp4" type="video/mp4" />
     Your browser does not support the video tag.
@@ -208,11 +192,14 @@
 
   <div class="card-container">
     <div class="card" id="card">
-      <h1 onclick="toggleCard()">Om Chitlangia</h1>
-      <p class="subtitle" onclick="toggleCard()">Economics & Finance @ Shiv Nadar University</p>
+      <h1>Om Chitlangia</h1>
+      <p class="subtitle">Economics & Finance @ Shiv Nadar University</p>
       
       <div class="main-content">
-        <p class="description">I'm passionate about investments, financial modeling, behavioral finance, and turning inefficiencies into opportunities using math and psychology.</p>
+        <p class="description">
+          I'm passionate about investments, financial modeling, behavioral finance, 
+          and turning inefficiencies into opportunities using math and psychology.
+        </p>
         
         <div class="buttons">
           <a class="button" href="Om%20Chitlangia.pdf" download>
@@ -234,24 +221,27 @@
   </div>
 
   <script>
-    function toggleCard() {
-      const card = document.getElementById('card');
-      card.classList.toggle('expanded');
-      
-      // If expanding, ensure video is playing (for mobile)
-      if (card.classList.contains('expanded')) {
-        const video = document.getElementById('bgVideo');
-        video.play().catch(e => console.log("Autoplay prevented:", e));
-      }
+    const card = document.getElementById('card');
+    let isMobile = window.matchMedia("(pointer: coarse)").matches;
+
+    // Handle both hover and click interactions
+    if (isMobile) {
+      card.addEventListener('click', toggleCard);
+    } else {
+      card.addEventListener('mouseenter', () => card.classList.add('expanded'));
+      card.addEventListener('mouseleave', () => card.classList.remove('expanded'));
     }
-    
-    // Auto-expand after 3 seconds if not hovered
+
+    function toggleCard() {
+      card.classList.toggle('expanded');
+    }
+
+    // Auto-expand after delay if no interaction
     setTimeout(() => {
-      const card = document.getElementById('card');
       if (!card.classList.contains('expanded')) {
         card.classList.add('expanded');
       }
-    }, 3000);
+    }, 2000);
   </script>
 </body>
 </html>
