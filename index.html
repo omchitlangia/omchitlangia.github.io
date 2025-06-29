@@ -13,65 +13,44 @@
     }
 
     body {
-      height: 100vh;
       font-family: 'Inter', sans-serif;
       color: #f8fafc;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      padding: 20px;
-      overflow: hidden;
-      animation: fadeIn 1s ease-in-out;
+      position: relative;
     }
 
     #bgVideo {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      height: 100vh;
+      width: 100vw;
       object-fit: cover;
       z-index: -1;
-      filter: brightness(0.3) blur(2px);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .card {
-      background: rgba(30, 41, 59, 0.85);
-      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: saturate(180%) blur(6px);
       padding: 2rem;
-      border-radius: 1.25rem;
-      max-width: 700px;
-      width: 100%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4),
-                  0 0 20px rgba(255,255,255,0.1),
-                  0 0 40px rgba(59,130,246,0.3),
-                  0 0 60px rgba(37,99,235,0.5);
-      animation: floatCard 3s ease-in-out infinite alternate,
-                 pulseGlow 4s ease-in-out infinite;
+      border-radius: 1.5rem;
+      max-width: 720px;
+      width: 90%;
       text-align: center;
-    }
-
-    @keyframes floatCard {
-      from { transform: translateY(0px); }
-      to { transform: translateY(-10px); }
-    }
-
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 20px rgba(59,130,246,0.2); }
-      50% { box-shadow: 0 0 40px rgba(59,130,246,0.7); }
-      100% { box-shadow: 0 0 20px rgba(59,130,246,0.2); }
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
+      animation: floatCard 3s ease-in-out infinite alternate, fadeIn 1s ease-in-out;
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.25rem;
-      text-shadow: 0 0 10px #3b82f6, 0 0 20px #2563eb;
+      font-size: 2.7rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 8px #3b82f6;
     }
 
     p.subtitle {
@@ -79,10 +58,15 @@
       margin-bottom: 1.5rem;
     }
 
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
     a.button {
       display: inline-block;
-      margin: 10px 10px 0 0;
-      padding: 14px 24px;
+      margin: 12px 8px 0 8px;
+      padding: 12px 24px;
       background: #3b82f6;
       color: #fff;
       text-decoration: none;
@@ -90,33 +74,35 @@
       font-weight: 600;
       box-shadow: 0 8px 15px rgba(59, 130, 246, 0.3);
       transition: all 0.3s ease;
-      perspective: 1000px;
-      transform-style: preserve-3d;
     }
 
     a.button:hover {
-      transform: translateY(-4px) scale(1.03) rotateX(10deg);
+      transform: scale(1.05);
       background: #2563eb;
-      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.6);
-    }
-
-    a.button:active {
-      transform: translateY(2px) scale(0.97);
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.5);
     }
 
     .footer {
       margin-top: 30px;
       font-size: 0.9rem;
       color: #94a3b8;
-      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes floatCard {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <!-- ✅ Video Background Goes Here -->
-  <video autoplay muted loop id="bgVideo">
+  <!-- ✅ Persistent Background Video -->
+  <video autoplay muted loop playsinline id="bgVideo">
     <source src="bg.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
@@ -128,10 +114,10 @@
     
     <a class="button" href="Om%20Chitlangia.pdf" download>📄 Download My CV</a>
     <a class="button" href="https://discord.com/users/omchitlangia" target="_blank">💬 Message Me on Discord</a>
-  </div>
 
-  <div class="footer">
-    © 2025 Om Chitlangia
+    <div class="footer">
+      © 2025 Om Chitlangia
+    </div>
   </div>
 
 </body>
