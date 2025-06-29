@@ -38,7 +38,7 @@
     }
 
     .card {
-      background-color: rgba(0, 0, 0, 0.8); /* Almost pure black */
+      background-color: rgba(0, 0, 0, 0.85); /* Darker background */
       color: #ffffff;
       padding: 2rem 2.5rem;
       border-radius: 1rem;
@@ -46,6 +46,29 @@
       text-align: center;
       box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
       animation: fadeIn 1.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 45%,
+        rgba(255, 255, 255, 0.1) 48%,
+        rgba(255, 255, 255, 0.1) 52%,
+        rgba(255, 255, 255, 0) 55%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(30deg);
+      animation: shine 6s infinite linear;
+      z-index: -1;
     }
 
     h1 {
@@ -64,6 +87,10 @@
       color: #d1d5db;
     }
 
+    .buttons {
+      margin-top: 1.5rem;
+    }
+
     a.button {
       display: inline-block;
       margin: 10px 10px 0 0;
@@ -78,6 +105,7 @@
 
     a.button:hover {
       background: #e2e8f0;
+      transform: translateY(-2px);
     }
 
     .footer {
@@ -89,6 +117,11 @@
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shine {
+      0% { transform: rotate(30deg) translate(-10%, -10%); }
+      100% { transform: rotate(30deg) translate(10%, 10%); }
     }
   </style>
 </head>
@@ -103,10 +136,13 @@
   <div class="card">
     <h1>Om Chitlangia</h1>
     <p class="subtitle">Economics & Finance @ Shiv Nadar University</p>
-    <p>I’m passionate about investments, financial modeling, behavioral finance, and turning inefficiencies into opportunities using math and psychology.</p>
+    <p>I'm passionate about investments, financial modeling, behavioral finance, and turning inefficiencies into opportunities using math and psychology.</p>
     
-    <a class="button" href="Om%20Chitlangia.pdf" download>📄 Download My CV</a>
-    <a class="button" href="https://discord.com/users/omchitlangia" target="_blank">💬 Message Me on Discord</a>
+    <div class="buttons">
+      <a class="button" href="Om%20Chitlangia.pdf" download>📄 Resume</a>
+      <a class="button" href="https://discord.com/users/omchitlangia" target="_blank">💬 Discord</a>
+      <a class="button" href="https://github.com/omchitlangia" target="_blank">🐙 GitHub</a>
+    </div>
 
     <div class="footer">
       © 2025 Om Chitlangia
