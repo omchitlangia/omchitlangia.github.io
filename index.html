@@ -17,15 +17,15 @@
       height: 100%;
       width: 100%;
       font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
     body {
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #0a0a0a;
-      color: white;
+      position: relative;
+      background-color: black;
     }
 
     video#bgVideo {
@@ -46,14 +46,16 @@
     }
 
     .card {
-      background: rgba(10, 10, 10, 0.95);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
       border-radius: 12px;
       padding: 2rem;
       position: relative;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s ease;
       max-height: 140px;
       cursor: pointer;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
     }
 
     @media (hover: hover) {
@@ -78,9 +80,9 @@
       padding: 2px;
       background: linear-gradient(
         90deg,
-        #00ffff 0%,
-        #ffd700 50%,
-        #00ffff 100%
+        #ffffff 0%,
+        #aaaaaa 50%,
+        #ffffff 100%
       );
       -webkit-mask: 
         linear-gradient(#fff 0 0) content-box, 
@@ -95,17 +97,13 @@
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
       font-weight: 800;
-      background: linear-gradient(90deg, #00ffff, #ffd700);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: white;
     }
 
     p.subtitle {
-      color: #a0a0a0;
+      color: #e2e8f0;
       font-weight: 600;
       margin-bottom: 0;
-      transition: all 0.3s ease;
     }
 
     .main-content {
@@ -113,17 +111,17 @@
       height: 0;
       overflow: hidden;
       transition: all 0.4s ease;
+      padding-top: 1rem;
     }
 
     .card.expanded .main-content,
     .card:hover .main-content {
       opacity: 1;
       height: auto;
-      margin-top: 1.5rem;
     }
 
     p.description {
-      color: #d0d0d0;
+      color: #d1d5db;
       line-height: 1.6;
       margin-bottom: 2rem;
     }
@@ -133,6 +131,7 @@
       flex-wrap: wrap;
       gap: 12px;
       justify-content: center;
+      margin-bottom: 1rem;
     }
 
     a.button {
@@ -140,41 +139,28 @@
       align-items: center;
       gap: 8px;
       padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 8px;
-      color: white;
+      background: rgba(255, 255, 255, 0.9);
+      color: black;
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
     }
 
     a.button:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: white;
       transform: translateY(-2px);
     }
 
     .button i {
       font-size: 1.1em;
-    }
-
-    .fa-discord {
-      color: #5865F2;
-    }
-
-    .fa-github {
-      color: white;
-    }
-
-    .fa-file-alt {
-      color: #00ffff;
+      color: black;
     }
 
     .footer {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       font-size: 0.8rem;
-      color: #666;
+      color: #94a3b8;
       text-align: center;
     }
 
@@ -185,6 +171,7 @@
   </style>
 </head>
 <body>
+  <!-- Video Background Restored -->
   <video autoplay muted loop playsinline id="bgVideo">
     <source src="bg.mp4" type="video/mp4" />
     Your browser does not support the video tag.
