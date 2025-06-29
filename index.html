@@ -6,40 +6,40 @@
   <title>Om Chitlangia</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       height: 100vh;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e3a8a);
       color: #f8fafc;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       padding: 20px;
+      overflow: hidden;
       animation: fadeIn 1s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     #bgVideo {
       position: fixed;
       top: 0;
       left: 0;
-      min-width: 100%;
-      min-height: 100%;
-      z-index: -1;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      filter: brightness(0.4) blur(2px);
+      z-index: -1;
+      filter: brightness(0.3) blur(2px);
     }
 
-    <video autoplay muted loop id="bgVideo">
-      <source src="bg.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .card {
       background: rgba(30, 41, 59, 0.85);
@@ -48,11 +48,13 @@
       border-radius: 1.25rem;
       max-width: 700px;
       width: 100%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-      animation: floatCard 3s ease-in-out infinite alternate;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4),
+                  0 0 20px rgba(255,255,255,0.1),
+                  0 0 40px rgba(59,130,246,0.3),
+                  0 0 60px rgba(37,99,235,0.5);
+      animation: floatCard 3s ease-in-out infinite alternate,
+                 pulseGlow 4s ease-in-out infinite;
       text-align: center;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2), 0 0 40px rgba(59,130,246,0.4), 0 0 60px rgba(37,99,235,0.6);
-      animation: pulseGlow 4s ease-in-out infinite;
     }
 
     @keyframes floatCard {
@@ -65,7 +67,6 @@
       50% { box-shadow: 0 0 40px rgba(59,130,246,0.7); }
       100% { box-shadow: 0 0 20px rgba(59,130,246,0.2); }
     }
-
 
     h1 {
       font-size: 2.5rem;
@@ -113,6 +114,13 @@
   </style>
 </head>
 <body>
+
+  <!-- ✅ Video Background Goes Here -->
+  <video autoplay muted loop id="bgVideo">
+    <source src="bg.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
   <div class="card">
     <h1>Om Chitlangia</h1>
     <p class="subtitle">Economics & Finance @ Shiv Nadar University</p>
@@ -125,5 +133,6 @@
   <div class="footer">
     © 2025 Om Chitlangia
   </div>
+
 </body>
 </html>
